@@ -10,7 +10,7 @@
   
 <body>
   <div id="header">
-    <h2>COBI.Bike Hello World - Caroline</h2>
+    <h2>COBI.Bike Hello World - Bent</h2>
   </div>
   <div class="my-content">
     <div id="speed">Waiting for COBI.Bike to load...</div>
@@ -29,14 +29,29 @@
 
     // Authenticate your module
     COBI.init('token');
+
+    // Create list for data 
+    let torque_data = ["Torque"];
+
     
-    // Subscribe to a data service
+    // Subscribe to data services speed and userPower
     COBI.rideService.speed.subscribe(function(speed) {      
       $('#speed').html(`You are riding at ${ speed.toFixed(2) } m/s`);
     });
     COBI.rideService.userPower.subscribe(function(userPower) {
       $("#torque").html(`You are putting in ${ userPower.toFixed(2) } Watts`);
+      torque_data.push(userPower.toFixed(2));
     })
+
+
+
+
+
+
+
+
+
+
 
   </script>
   
