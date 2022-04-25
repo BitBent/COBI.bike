@@ -17,6 +17,14 @@
     <div id="torque">Waiting for COBI.Bike to load...</div>
   </div>
 
+  <button onclick = "exportToCsv('snelheid.csv', snelheid)">
+    export snelheid
+  </button>
+  <button onclick = "exportToCsv('torque.csv', torque)">
+    export torque
+  </button>
+  <script src="./export.js"></script>
+
   <!-- <div id="cobi-thumbnail">
     <img src="https://cdn.glitch.com/a8410dbe-26b4-49d1-9343-b70acf2ecb1a%2FCOBI_logo_neg_15mm_rgb_no-claim.png?1533568547538" width="150" height="50">
   </div> -->
@@ -31,26 +39,28 @@
     COBI.init('token');
 
     // create empty maps
-    let mapspeed = new Map();
-    let maptorque = new Map();
-   
+    // let mapspeed = new Map();
+    // let maptorque = new Map();
+
+    let snelheid = [[]];
+    let torque = [[]];
+
     // Subscribe to data services speed and userPower
     COBI.rideService.speed.subscribe(function(speed) {  
       $('#speed').html(`You are riding at ${ speed.toFixed(2) } m/s`);
-      mapspeed.set(Date.now(), speed.toFixed(2))
-      // snelheid.push(speed.toFixed(2));
+      // mapspeed.set(Date.now(), speed.toFixed(2))
+      snelheid.push([Date.now(), speed.toFixed(2)]);
     });
     COBI.rideService.userPower.subscribe(function(userPower) {
       $("#torque").html(`You are putting in ${ userPower.toFixed(2) } Watts`);
-      maptorque.set(Date.now(), userPower.toFixed(2))
-      // torque.push(userPower.toFixed(2));
+      // maptorque.set(Date.now(), userPower.toFixed(2))
+      torque.push([Date.now(), userPower.toFixed(2)]);
     });
     
-    console.log(mapspeed);
-    console.log(maptorque);
-
-  
-
+    // console.log(mapspeed);
+    // console.log(maptorque);
+    console.log(snelheid);
+    console.log(torque);
 
   </script>
   
