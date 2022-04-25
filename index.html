@@ -10,7 +10,7 @@
   
 <body>
   <div id="header">
-    <h2>COBI.Bike Hello World - Bent</h2>
+    <h2>COBI.Bike - Bent</h2>
   </div>
   <div class="my-content">
     <div id="speed">Waiting for COBI.Bike to load...</div>
@@ -30,33 +30,27 @@
     // Authenticate your module
     COBI.init('token');
 
-    // Create array for the Torque data
-    let torque = [];
-    torque = ["Timestamp", "Torque", "Speed"];
-
-    // Create list for data 
-    // let torque_data = ["Torque"];
-
-    
+    // create empty maps
+    let mapspeed = new Map();
+    let maptorque = new Map();
+   
     // Subscribe to data services speed and userPower
-    COBI.rideService.speed.subscribe(function(speed) {      
+    COBI.rideService.speed.subscribe(function(speed) {  
       $('#speed').html(`You are riding at ${ speed.toFixed(2) } m/s`);
-      torque[2].push(speed.toFixed(2));
+      mapspeed.set(Date.now(), speed.toFixed(2))
+      // snelheid.push(speed.toFixed(2));
     });
-    // COBI.rideService.userPower.subscribe(function(userPower) {
-    //   $("#torque").html(`You are putting in ${ userPower.toFixed(2) } Watts`);
-    //   torque[1].push(userPower.toFixed(2));
-    // })
+    COBI.rideService.userPower.subscribe(function(userPower) {
+      $("#torque").html(`You are putting in ${ userPower.toFixed(2) } Watts`);
+      maptorque.set(Date.now(), userPower.toFixed(2))
+      // torque.push(userPower.toFixed(2));
+    });
+    
+    console.log(mapspeed);
+    console.log(maptorque);
 
+  
 
-
-
-
-
-
-
-
-    console.log("torque = ",torque);
 
   </script>
   
