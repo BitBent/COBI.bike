@@ -30,18 +30,23 @@
     // Authenticate your module
     COBI.init('token');
 
+    // Create array for the Torque data
+    let torque = [];
+    // torque = ["Timestamp", "Torque", "Speed"];
+
     // Create list for data 
-    let torque_data = ["Torque"];
+    // let torque_data = ["Torque"];
 
     
     // Subscribe to data services speed and userPower
     COBI.rideService.speed.subscribe(function(speed) {      
       $('#speed').html(`You are riding at ${ speed.toFixed(2) } m/s`);
+      torque.push(speed.toFixed(2));
     });
-    COBI.rideService.userPower.subscribe(function(userPower) {
-      $("#torque").html(`You are putting in ${ userPower.toFixed(2) } Watts`);
-      torque_data.push(userPower.toFixed(2));
-    })
+    // COBI.rideService.userPower.subscribe(function(userPower) {
+    //   $("#torque").html(`You are putting in ${ userPower.toFixed(2) } Watts`);
+    //   torque[1].push(userPower.toFixed(2));
+    // })
 
 
 
@@ -51,7 +56,7 @@
 
 
 
-
+    console.log("torque = ",torque);
 
   </script>
   
