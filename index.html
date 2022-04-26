@@ -16,6 +16,13 @@
     <div id="speed">Waiting for COBI.Bike to load...</div>
     <div id="torque">Waiting for COBI.Bike to load...</div>
   </div>
+  <!-- <button onclick = "COBI.app.touchInteractionEnabled = false">
+    end ride
+  </button> -->
+  <script> COBI.app.touchInteractionEnabled.subscribe(function(enabled) {
+    // Adapt your UI
+  });
+  </script>
 
   <button onclick = "exportToCsv('snelheid.csv', snelheid)">
     export snelheid
