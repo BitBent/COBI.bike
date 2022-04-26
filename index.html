@@ -16,9 +16,21 @@
     <div id="speed">Waiting for COBI.Bike to load...</div>
     <div id="torque">Waiting for COBI.Bike to load...</div>
   </div>
-  <button>
+  <!-- <button>
     end ride
-  </button>
+  </button> -->
+ 
+  <script src="./export.js"></script>
+
+  <!-- <div id="cobi-thumbnail">
+    <img src="https://cdn.glitch.com/a8410dbe-26b4-49d1-9343-b70acf2ecb1a%2FCOBI_logo_neg_15mm_rgb_no-claim.png?1533568547538" width="150" height="50">
+  </div> -->
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+  <!-- COBI.JS -->
+  <script src="https://cdn.cobi.bike/cobi.js/0.44.0/cobi.js"></script>
+
   <script> COBI.app.touchInteractionEnabled.subscribe(function(enabled) {
     // Adapt your UI
   });
@@ -30,16 +42,7 @@
   <button onclick = "exportToCsv('torque.csv', torque)">
     export torque
   </button>
-  <script src="./export.js"></script>
 
-  <!-- <div id="cobi-thumbnail">
-    <img src="https://cdn.glitch.com/a8410dbe-26b4-49d1-9343-b70acf2ecb1a%2FCOBI_logo_neg_15mm_rgb_no-claim.png?1533568547538" width="150" height="50">
-  </div> -->
-
-  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
-  <!-- COBI.JS -->
-  <script src="https://cdn.cobi.bike/cobi.js/0.44.0/cobi.js"></script>
   <script> // from here it is javascript
 
     // Authenticate your module
