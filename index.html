@@ -38,6 +38,8 @@
   </script>
 
   <div id='test'></div>
+  
+  <!-- create buttons to trigger export to .csv -->
   <button onclick = "exportToCsv('snelheid.csv', snelheid)">
     export snelheid
   </button>
@@ -50,33 +52,28 @@
     // Authenticate your module
     COBI.init('token');
 
-    // create empty maps
-    // let mapspeed = new Map();
-    // let maptorque = new Map();
-
+    // create empty double arrays to store data
     let snelheid = [[]];
     let torque = [[]];
 
-    // Subscribe to data services speed and userPower
+    // Subscribe to data services speed and userPower and log them in arrays combined with unix timestamp
     COBI.rideService.speed.subscribe(function(speed) {  
       $('#speed').html(`You are riding at ${ speed.toFixed(2) } m/s`);
-      // mapspeed.set(Date.now(), speed.toFixed(2))
       snelheid.push([Date.now(), speed.toFixed(2)]);
     });
     COBI.rideService.userPower.subscribe(function(userPower) {
       $("#torque").html(`You are putting in ${ userPower.toFixed(2) } Watts`);
-      // maptorque.set(Date.now(), userPower.toFixed(2))
       torque.push([Date.now(), userPower.toFixed(2)]);
     });
 
+    // use thumb controller (press SELECT once) to export to .csv
     COBI.hub.externalInterfaceAction.subscribe(function(action) {
       if (action = 'SELECT')
       exportToCsv('snelheid.csv', snelheid)
       console.log('I tried exporting snelheid.csv')
     });
     
-    // console.log(mapspeed);
-    // console.log(maptorque);
+    // log arrays in console for validation of data collection
     console.log(snelheid);
     console.log(torque);
 
