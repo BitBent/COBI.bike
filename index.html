@@ -68,6 +68,12 @@
       // maptorque.set(Date.now(), userPower.toFixed(2))
       torque.push([Date.now(), userPower.toFixed(2)]);
     });
+
+    COBI.hub.externalInterfaceAction.subscribe(function(action) {
+      if (action = 'SELECT')
+      exportToCsv('snelheid.csv', snelheid)
+      console.log('I tried exporting snelheid.csv')
+    });
     
     // console.log(mapspeed);
     // console.log(maptorque);
