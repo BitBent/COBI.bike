@@ -16,6 +16,11 @@
     <div id="speed">Waiting for COBI.Bike to load...</div>
     <div id="torque">Waiting for COBI.Bike to load...</div>
   </div>
+  <!-- <button>
+    end ride
+  </button> -->
+ 
+  <script src="./export.js"></script>
 
   <!-- <div id="cobi-thumbnail">
     <img src="https://cdn.glitch.com/a8410dbe-26b4-49d1-9343-b70acf2ecb1a%2FCOBI_logo_neg_15mm_rgb_no-claim.png?1533568547538" width="150" height="50">
@@ -25,34 +30,57 @@
 
   <!-- COBI.JS -->
   <script src="https://cdn.cobi.bike/cobi.js/0.44.0/cobi.js"></script>
+
+  <script> COBI.app.touchInteractionEnabled.subscribe(function(enabled) {
+    // Adapt your UI
+    document.getElementById('test').innerHTML = ' touch screen enabled: ' + enabled
+  });
+  </script>
+
+  <div id='test'></div>
+  
+  <!-- create buttons to trigger export to .csv -->
+  <button onclick = "exportToCsv('snelheid.csv', snelheid)">
+    export snelheid
+  </button>
+  <button onclick = "exportToCsv('torque.csv', torque)">
+    export torque
+  </button>
+
+  <div id='logs'></div>
+
   <script> // from here it is javascript
 
     // Authenticate your module
     COBI.init('token');
 
-    // create empty maps
-    let mapspeed = new Map();
-    let maptorque = new Map();
-   
-    // Subscribe to data services speed and userPower
+    // create empty double arrays to store data
+    let snelheid = [[]];
+    let torque = [[]];
+
+    // Subscribe to data services speed and userPower and log them in arrays combined with unix timestamp
     COBI.rideService.speed.subscribe(function(speed) {  
       $('#speed').html(`You are riding at ${ speed.toFixed(2) } m/s`);
-      mapspeed.set(Date.now(), speed.toFixed(2))
-      // snelheid.push(speed.toFixed(2));
+      snelheid.push([Date.now(), speed.toFixed(2)]);
     });
     COBI.rideService.userPower.subscribe(function(userPower) {
       $("#torque").html(`You are putting in ${ userPower.toFixed(2) } Watts`);
-      maptorque.set(Date.now(), userPower.toFixed(2))
-      // torque.push(userPower.toFixed(2));
+      torque.push([Date.now(), userPower.toFixed(2)]);
+    });
+
+    // use thumb controller (press SELECT once) to export to .csv
+    COBI.hub.externalInterfaceAction.subscribe(function(action) {
+      if (action = 'SELECT')
+      exportToCsv('snelheid.csv', snelheid)
+      console.log('I tried exporting snelheid.csv')
     });
     
-    console.log(mapspeed);
-    console.log(maptorque);
-
-  
-
+    // log arrays in console for validation of data collection
+    console.log(snelheid);
+    console.log(torque);
 
   </script>
-  
+
+  <script src="./consolelogger.js"></script>
 </body>
 </html>
