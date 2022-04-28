@@ -50,3 +50,6 @@ window.console = console
 window.addEventListener('error', function(e){
   console.log(e.message)
 })
+
+
+// source; https://stackoverflow.com/questions/67184346/overriding-console-log-etc-to-display-inside-html-view
