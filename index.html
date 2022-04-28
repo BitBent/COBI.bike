@@ -33,9 +33,11 @@
 
   <script> COBI.app.touchInteractionEnabled.subscribe(function(enabled) {
     // Adapt your UI
+    document.getElementById('test').innerHTML += 'enabled: ' + enabled
   });
   </script>
 
+  <div id='test'></div>
   <button onclick = "exportToCsv('snelheid.csv', snelheid)">
     export snelheid
   </button>
