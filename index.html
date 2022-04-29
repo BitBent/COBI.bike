@@ -39,6 +39,17 @@
 
   <div id='test'></div>
   
+  <form>
+    <div>
+      <label for="check">Checking text input: </label>
+      <input type="text" id="check">
+    </div>
+    <div>
+      <button>Submit</button>
+    </div>
+  </form>
+
+
   <!-- create buttons to trigger export to .csv -->
   <button onclick = "exportToCsv('snelheid.csv', snelheid)">
     export snelheid
@@ -57,6 +68,9 @@
     // create empty double arrays to store data
     let snelheid = [[]];
     let torque = [[]];
+    let theText = check.value;
+    console.log(theText);
+
 
     // Subscribe to data services speed and userPower and log them in arrays combined with unix timestamp
     COBI.rideService.speed.subscribe(function(speed) {  
